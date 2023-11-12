@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 options = Options()
-options.add_experimental_option('detach', True)
+#options.add_experimental_option('detach', True)
 #options.page_load_strategy = 'eager'
 
 driver = webdriver.Chrome(options = options)
@@ -17,13 +17,14 @@ driver.get('https://en.onepiece-cardgame.com/cardlist/?series=569104')
 driver.find_element(By.ID, "onetrust-accept-btn-handler").click()
 
 #Clique sur les sets
-#driver.find_element(By.CLASS_NAME, "selModalButton").click()
+driver.find_element(By.CLASS_NAME, "selModalButton").click()
 
 #Clique sur "All" pour selectioné toutes les sets
-#driver.find_element(By.CSS_SELECTOR, ".selModalClose:nth-of-type(2)").click()
+driver.find_element(By.CSS_SELECTOR, ".selModalClose:nth-of-type(2)").click()
 
 #Lancer la rechercher pour avoir toutes les cartes de tout les sets
-#driver.find_element(By.CSS_SELECTOR, ".submitBtn input").click()
+driver.find_element(By.CSS_SELECTOR, ".submitBtn input").submit()
+
 
 #Récupération des data
 def get_data():
@@ -88,7 +89,6 @@ def get_data():
         #Color string to array
         color_clear = color[5:]
         color_array = color_clear.split("/")
-        color_array.remove("")
 
 
         #Type string to array
@@ -115,6 +115,7 @@ def get_data():
 
     return data
 
-#with open("data.json", "w") as outfile:
-    #json.dump(get_data(), outfile, indent = 4)
+with open("scrapData.json", "w") as outfile:
+    json.dump(get_data(), outfile, indent = 4)
+    print("json ok")
 print(get_data())
